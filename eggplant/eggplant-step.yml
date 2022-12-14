@@ -32,8 +32,7 @@ spec:
         "additionalProperties": false,
         "patterns": [],
         "required": [
-          "VAULT_ADDR",
-          "VAULT_PATH"
+          "APP_URL"
         ],
         "properties": {
             "EGGPLANT_ADDR": {
