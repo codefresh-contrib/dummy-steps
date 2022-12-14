@@ -1,0 +1,54 @@
+version: '1.0'
+kind: step-type
+metadata:
+  name: codefreshdemo/eggplant
+  version: 0.0.7
+  title: Run eggplant tests
+  isPublic: true
+  description: Run eggplant smoke test
+  sources:
+    - 'https://github.com/codefresh-contrib/dummy-steps'
+  maintainers:
+    - name: Anthony Rozario
+  icon:
+    type: svg
+    url: 'https://cdn.jsdelivr.net/gh/codefresh-io/steps/incubating/vault/icon.svg'
+    background: '#f4f4f4'
+  examples:
+    - description: Add Prefix to Variables
+      workflow:
+        Vault_to_Env:
+          title: Importing vault values
+          type: vault
+          arguments:
+            EGGPLANT_ADDR: '${{EP_SERVER}}'
+            APP_URL: '{{APP_URL}}'
+spec:
+  arguments: |-
+    {
+        "definitions": {},
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "additionalProperties": false,
+        "patterns": [],
+        "required": [
+          "VAULT_ADDR",
+          "VAULT_PATH"
+        ],
+        "properties": {
+            "EGGPLANT_ADDR": {
+                "type": "string",
+                "description": "Vault server URI. Example: https://vault.testdomain.io:8200 (required)"
+            },
+            "APP_URL": {
+                "type": "string",
+                "description": "Path to secrets in vault. Example: secret/codefreshsecret (required)"
+            }
+        }
+    }
+  steps:
+    main:
+      name: vault
+      image: alpine:latest
+      commands:
+        - running eggplant test for ${{APP_URL}}

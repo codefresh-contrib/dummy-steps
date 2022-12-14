@@ -1,0 +1,54 @@
+version: '1.0'
+kind: step-type
+metadata:
+  name: codefreshdemo/logstash
+  version: 0.0.7
+  title: Run logstash tests
+  isPublic: true
+  description: Run logstash smoke test
+  sources:
+    - 'https://github.com/codefresh-io/steps/tree/master/incubating/vault'
+  maintainers:
+    - name: Anthony Rozario
+  icon:
+    type: svg
+    url: 'https://cdn.jsdelivr.net/gh/codefresh-io/steps/incubating/vault/icon.svg'
+    background: '#f4f4f4'
+  examples:
+    - description: Add Prefix to Variables
+      workflow:
+        Vault_to_Env:
+          title: Importing vault values
+          type: vault
+          arguments:
+            logstash_ADDR: '${{LS_SERVER}}'
+            APP_URL: '{{APP_URL}}'
+spec:
+  arguments: |-
+    {
+        "definitions": {},
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "additionalProperties": false,
+        "patterns": [],
+        "required": [
+          "VAULT_ADDR",
+          "VAULT_PATH"
+        ],
+        "properties": {
+            "logstash_ADDR": {
+                "type": "string",
+                "description": "Vault server URI. Example: https://vault.testdomain.io:8200 (required)"
+            },
+            "APP_URL": {
+                "type": "string",
+                "description": "Path to secrets in vault. Example: secret/codefreshsecret (required)"
+            }
+        }
+    }
+  steps:
+    main:
+      name: vault
+      image: alpine:latest
+      commands:
+        - running logstash test for ${{APP_URL}}
