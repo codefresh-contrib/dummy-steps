@@ -11,7 +11,7 @@ metadata:
   maintainers:
     - name: Anthony Rozario
   icon:
-    type: png
+    type: image
     url: 'https://cdn.jsdelivr.net/gh/codefresh-contrib/dummy-steps@main/eggplant/eggplant.png'
     background: '#f4f4f4'
   examples:
